@@ -60,6 +60,15 @@
       </a>
 
       <h3 style="color:#2c6e49; margin-top:30px;">Current Lost Items</h3>
+      <select
+  id="typeFilter"
+  onchange="searchTable()"
+  style="width:100%; padding:10px; border-radius:6px; border:1px solid #ccc;"
+>
+  <option value="all">All Items</option>
+  <option value="lost">Lost Items</option>
+  <option value="found">Found Items</option>
+</select>
 <input
   type="text"
   id="searchInput"
