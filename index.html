@@ -46,7 +46,13 @@
       <div style="background:#e9f5ec; padding:15px; border-left:5px solid #2c6e49;">🎉 Spirit Week starts soon</div>
     </div>
   </section>
-
+<input
+  type="text"
+  id="searchInput"
+  placeholder="Search lost items..."
+  style="width:100%; padding:10px; margin:15px 0; border-radius:6px; border:1px solid #ccc;"
+  onkeyup="searchTable()"
+/>
   <!-- Lost & Found -->
   <section id="lostfound">
     <div style="max-width:900px; margin:25px auto; padding:25px; background:white; border-radius:12px; box-shadow:0 6px 15px rgba(0,0,0,0.1);">
@@ -76,13 +82,7 @@
   <footer style="background:#1b4332; color:white; text-align:center; padding:20px;">
     <p>© 2026 Grayslake Central High School</p>
   </footer>
-<input
-  type="text"
-  id="searchInput"
-  placeholder="Search lost items..."
-  style="width:100%; padding:10px; margin:15px 0; border-radius:6px; border:1px solid #ccc;"
-  onkeyup="searchTable()"
-/>
+
   <!-- JavaScript to Load Google Sheet -->
   <script>
     const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSUAhtLgwI1TJFAJC4P6NpIfrSNND1R2kTGPN8WMQvRW4zX9WNQ_5LAwvZVWmgY_ad6H-VftN6jOrKv/pub?output=csv";
