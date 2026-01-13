@@ -33,7 +33,7 @@
   <section id="about">
     <div style="max-width:900px; margin:25px auto; padding:25px; background:white; border-radius:12px; box-shadow:0 6px 15px rgba(0,0,0,0.1);">
       <h2 style="color:#2c6e49;">About Our School</h2>
-      <p>Grayslake Central High School encourages students to explore, learn, and grow. Our staff are dedicated to fostering curiosity, responsibility, and leadership in every student.</p>
+      <p>Grayslake Central High School encourages students to explore, learn, and grow.</p>
     </div>
   </section>
 
@@ -51,7 +51,6 @@
   <section id="lostfound">
     <div style="max-width:900px; margin:25px auto; padding:25px; background:white; border-radius:12px; box-shadow:0 6px 15px rgba(0,0,0,0.1);">
       <h2 style="color:#2c6e49;">Lost & Found</h2>
-      <p>If you lost or found an item, please submit it using the form below.</p>
 
       <a href="https://docs.google.com/forms/d/e/1FAIpQLSfyJZxC9BQkjeCYRGvwqsuJEjAIJbIoJi-EZcG7zhAPdi0JFQ/viewform"
          target="_blank"
@@ -62,11 +61,7 @@
       <h3 style="color:#2c6e49; margin-top:30px;">Current Lost Items</h3>
 
       <!-- Filters -->
-      <select
-        id="typeFilter"
-        onchange="searchTable()"
-        style="width:100%; padding:10px; border-radius:6px; border:1px solid #ccc;"
-      >
+      <select id="typeFilter" onchange="searchTable()" style="width:100%; padding:10px; border-radius:6px; border:1px solid #ccc;">
         <option value="all">All Items</option>
         <option value="lost">Lost Items</option>
         <option value="found">Found Items</option>
@@ -76,8 +71,8 @@
         type="text"
         id="searchInput"
         placeholder="Search items..."
-        style="width:100%; padding:10px; margin:15px 0; border-radius:6px; border:1px solid #ccc;"
         onkeyup="searchTable()"
+        style="width:100%; padding:10px; margin:15px 0; border-radius:6px; border:1px solid #ccc;"
       />
 
       <div style="overflow-x:auto;">
@@ -91,41 +86,50 @@
     </div>
   </section>
 
+  <!-- QUESTIONS BUTTON (NEW) -->
+  <section>
+    <div style="max-width:900px; margin:30px auto; padding:25px; background:white; border-radius:12px; box-shadow:0 6px 15px rgba(0,0,0,0.1); text-align:center;">
+      <h2 style="color:#2c6e49;">Have a Question?</h2>
+      <p>Submit any questions or concerns using the form below.</p>
+
+      <a href="<iframe src="https://docs.google.com/forms/d/e/1FAIpQLScqXLFwF20dWM6uyccynQgJ0SBfp1EayhakvF_MizeAcMlQKg/viewform?embedded=true" width="640" height="542" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>"
+         target="_blank"
+         style="display:inline-block; padding:15px 35px; background:#1b4332; color:white; text-decoration:none; font-size:1.1em; font-weight:bold; border-radius:10px;">
+        Ask a Question
+      </a>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer style="background:#1b4332; color:white; text-align:center; padding:20px;">
     <p>© 2026 Grayslake Central High School</p>
   </footer>
 
-  <!-- Load Google Sheet + render table -->
+  <!-- Load Google Sheet -->
   <script>
-    const sheetURL =
-      "https://docs.google.com/spreadsheets/d/e/2PACX-1vSUAhtLgwI1TJFAJC4P6NpIfrSNND1R2kTGPN8WMQvRW4zX9WNQ_5LAwvZVWmgY_ad6H-VftN6jOrKv/pub?output=csv";
+    const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSUAhtLgwI1TJFAJC4P6NpIfrSNND1R2kTGPN8WMQvRW4zX9WNQ_5LAwvZVWmgY_ad6H-VftN6jOrKv/pub?output=csv";
 
     fetch(sheetURL)
-      .then(response => response.text())
+      .then(res => res.text())
       .then(csv => {
-        const rows = csv.trim().split("\n").map(row => row.split(","));
+        const rows = csv.trim().split("\n").map(r => r.split(","));
         const headers = rows.shift();
 
-        const headerRow = document.getElementById("tableHeader");
         headers.forEach(h => {
           const th = document.createElement("th");
           th.textContent = h;
           th.style.padding = "10px";
           th.style.border = "1px solid #ddd";
-          headerRow.appendChild(th);
+          document.getElementById("tableHeader").appendChild(th);
         });
 
-        const body = document.getElementById("tableBody");
         rows.forEach(row => {
           const tr = document.createElement("tr");
-
           row.forEach(cell => {
             const td = document.createElement("td");
             td.style.padding = "10px";
             td.style.border = "1px solid #ddd";
 
-            // Make links clickable
             if (cell.startsWith("http")) {
               const a = document.createElement("a");
               a.href = cell;
@@ -141,13 +145,12 @@
 
             tr.appendChild(td);
           });
-
-          body.appendChild(tr);
+          document.getElementById("tableBody").appendChild(tr);
         });
       });
   </script>
 
-  <!-- Search + Dropdown logic -->
+  <!-- Search + Dropdown -->
   <script>
     function searchTable() {
       const search = document.getElementById("searchInput").value.toLowerCase();
@@ -156,11 +159,11 @@
 
       for (let i = 1; i < rows.length; i++) {
         const text = rows[i].textContent.toLowerCase();
-        const show =
+        rows[i].style.display =
           (type === "all" || text.includes(type)) &&
-          text.includes(search);
-
-        rows[i].style.display = show ? "" : "none";
+          text.includes(search)
+            ? ""
+            : "none";
       }
     }
   </script>
