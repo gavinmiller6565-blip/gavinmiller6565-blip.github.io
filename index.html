@@ -61,7 +61,7 @@
 
       <h3 style="color:#2c6e49; margin-top:30px;">Current Lost Items</h3>
 
-      <!-- FILTERS -->
+      <!-- Filters -->
       <select
         id="typeFilter"
         onchange="searchTable()"
@@ -96,9 +96,10 @@
     <p>© 2026 Grayslake Central High School</p>
   </footer>
 
-  <!-- Load Google Sheet -->
+  <!-- Load Google Sheet + render table -->
   <script>
-    const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSUAhtLgwI1TJFAJC4P6NpIfrSNND1R2kTGPN8WMQvRW4zX9WNQ_5LAwvZVWmgY_ad6H-VftN6jOrKv/pub?output=csv";
+    const sheetURL =
+      "https://docs.google.com/spreadsheets/d/e/2PACX-1vSUAhtLgwI1TJFAJC4P6NpIfrSNND1R2kTGPN8WMQvRW4zX9WNQ_5LAwvZVWmgY_ad6H-VftN6jOrKv/pub?output=csv";
 
     fetch(sheetURL)
       .then(response => response.text())
@@ -118,19 +119,35 @@
         const body = document.getElementById("tableBody");
         rows.forEach(row => {
           const tr = document.createElement("tr");
+
           row.forEach(cell => {
             const td = document.createElement("td");
-            td.textContent = cell;
             td.style.padding = "10px";
             td.style.border = "1px solid #ddd";
+
+            // Make links clickable
+            if (cell.startsWith("http")) {
+              const a = document.createElement("a");
+              a.href = cell;
+              a.textContent = "View";
+              a.target = "_blank";
+              a.style.color = "#2c6e49";
+              a.style.fontWeight = "bold";
+              a.style.textDecoration = "none";
+              td.appendChild(a);
+            } else {
+              td.textContent = cell;
+            }
+
             tr.appendChild(td);
           });
+
           body.appendChild(tr);
         });
       });
   </script>
 
-  <!-- SEARCH + DROPDOWN -->
+  <!-- Search + Dropdown logic -->
   <script>
     function searchTable() {
       const search = document.getElementById("searchInput").value.toLowerCase();
