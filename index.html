@@ -116,6 +116,20 @@
         });
       });
   </script>
+  <script>
+  function searchTable() {
+    const input = document.getElementById("searchInput");
+    const filter = input.value.toLowerCase();
+    const table = document.getElementById("lostFoundTable");
+    const rows = table.getElementsByTagName("tr");
+
+    // Skip header row (start at 1)
+    for (let i = 1; i < rows.length; i++) {
+      let rowText = rows[i].textContent.toLowerCase();
+      rows[i].style.display = rowText.includes(filter) ? "" : "none";
+    }
+  }
+</script>
 
 </body>
 </html>
