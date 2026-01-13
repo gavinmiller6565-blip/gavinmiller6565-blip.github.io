@@ -25,7 +25,7 @@
   <section id="home">
     <div style="max-width:900px; margin:25px auto; padding:25px; background:white; border-radius:12px; box-shadow:0 6px 15px rgba(0,0,0,0.1);">
       <h2 style="color:#2c6e49;">Welcome</h2>
-      <p>Welcome to Grayslake Central High School’s official website. We provide a safe and supportive environment for learning and growth.</p>
+      <p>Welcome to Grayslake Central High School’s official website.</p>
     </div>
   </section>
 
@@ -33,7 +33,7 @@
   <section id="about">
     <div style="max-width:900px; margin:25px auto; padding:25px; background:white; border-radius:12px; box-shadow:0 6px 15px rgba(0,0,0,0.1);">
       <h2 style="color:#2c6e49;">About Our School</h2>
-      <p>Grayslake Central High School encourages students to explore, learn, and grow. Our staff are dedicated to fostering curiosity, responsibility, and leadership in every student.</p>
+      <p>Grayslake Central High School encourages students to explore and grow.</p>
     </div>
   </section>
 
@@ -41,9 +41,9 @@
   <section id="announcements">
     <div style="max-width:900px; margin:25px auto; padding:25px; background:white; border-radius:12px; box-shadow:0 6px 15px rgba(0,0,0,0.1);">
       <h2 style="color:#2c6e49;">Announcements</h2>
-      <div style="background:#e9f5ec; padding:15px; border-left:5px solid #2c6e49; margin-bottom:10px;">📅 Parent-Teacher Conference this Friday</div>
-      <div style="background:#e9f5ec; padding:15px; border-left:5px solid #2c6e49; margin-bottom:10px;">🏫 School closed next Monday</div>
-      <div style="background:#e9f5ec; padding:15px; border-left:5px solid #2c6e49;">🎉 Spirit Week starts soon</div>
+      <div>📅 Parent-Teacher Conference this Friday</div>
+      <div>🏫 School closed next Monday</div>
+      <div>🎉 Spirit Week starts soon</div>
     </div>
   </section>
 
@@ -51,94 +51,80 @@
   <section id="lostfound">
     <div style="max-width:900px; margin:25px auto; padding:25px; background:white; border-radius:12px; box-shadow:0 6px 15px rgba(0,0,0,0.1);">
       <h2 style="color:#2c6e49;">Lost & Found</h2>
-      <p>If you lost or found an item, please submit it using the form below.</p>
 
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSfyJZxC9BQkjeCYRGvwqsuJEjAIJbIoJi-EZcG7zhAPdi0JFQ/viewform"
-         target="_blank"
-         style="display:inline-block; margin:15px 0; padding:12px 25px; background:#2c6e49; color:white; text-decoration:none; font-weight:bold; border-radius:8px;">
-        Submit Lost/Found Item
-      </a>
+      <select id="typeFilter" onchange="searchTable()" style="width:100%; padding:10px;">
+        <option value="all">All Items</option>
+        <option value="lost">Lost Items</option>
+        <option value="found">Found Items</option>
+      </select>
 
-      <h3 style="color:#2c6e49; margin-top:30px;">Current Lost Items</h3>
-      <select
-  id="typeFilter"
-  onchange="searchTable()"
-  style="width:100%; padding:10px; border-radius:6px; border:1px solid #ccc;"
->
-  <option value="all">All Items</option>
-  <option value="Lost">Lost Items</option>
-  <option value="Found">Found Items</option>
-</select>
-<input
-  type="text"
-  id="searchInput"
-  placeholder="Search lost items..."
-  style="width:100%; padding:10px; margin:15px 0; border-radius:6px; border:1px solid #ccc;"
-  onkeyup="searchTable()"
-/>
-      <div style="overflow-x:auto;">
-        <table id="lostFoundTable" style="width:100%; border-collapse:collapse;">
-          <thead style="background:#2c6e49; color:white;">
-            <tr id="tableHeader"></tr>
-          </thead>
-          <tbody id="tableBody"></tbody>
-        </table>
-      </div>
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search items..."
+        onkeyup="searchTable()"
+        style="width:100%; padding:10px; margin:10px 0;"
+      />
+
+      <table id="lostFoundTable" style="width:100%; border-collapse:collapse;">
+        <thead>
+          <tr id="tableHeader"></tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
     </div>
   </section>
 
   <!-- Footer -->
   <footer style="background:#1b4332; color:white; text-align:center; padding:20px;">
-    <p>© 2026 Grayslake Central High School</p>
+    © 2026 Grayslake Central High School
   </footer>
 
-  <!-- JavaScript to Load Google Sheet -->
+  <!-- Load Google Sheet -->
   <script>
     const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSUAhtLgwI1TJFAJC4P6NpIfrSNND1R2kTGPN8WMQvRW4zX9WNQ_5LAwvZVWmgY_ad6H-VftN6jOrKv/pub?output=csv";
 
     fetch(sheetURL)
-      .then(response => response.text())
+      .then(res => res.text())
       .then(csv => {
-        const rows = csv.trim().split("\n").map(row => row.split(","));
+        const rows = csv.trim().split("\n").map(r => r.split(","));
         const headers = rows.shift();
 
-        const headerRow = document.getElementById("tableHeader");
         headers.forEach(h => {
           const th = document.createElement("th");
           th.textContent = h;
-          th.style.padding = "10px";
-          th.style.border = "1px solid #ddd";
-          headerRow.appendChild(th);
+          document.getElementById("tableHeader").appendChild(th);
         });
 
-        const body = document.getElementById("tableBody");
         rows.forEach(row => {
           const tr = document.createElement("tr");
           row.forEach(cell => {
             const td = document.createElement("td");
             td.textContent = cell;
-            td.style.padding = "10px";
-            td.style.border = "1px solid #ddd";
             tr.appendChild(td);
           });
-          body.appendChild(tr);
+          document.getElementById("tableBody").appendChild(tr);
         });
       });
   </script>
-  <script>
-  function searchTable() {
-    const input = document.getElementById("searchInput");
-    const filter = input.value.toLowerCase();
-    const table = document.getElementById("lostFoundTable");
-    const rows = table.getElementsByTagName("tr");
 
-    // Skip header row (start at 1)
-    for (let i = 1; i < rows.length; i++) {
-      let rowText = rows[i].textContent.toLowerCase();
-      rows[i].style.display = rowText.includes(filter) ? "" : "none";
+  <!-- SEARCH + DROPDOWN FILTER -->
+  <script>
+    function searchTable() {
+      const search = document.getElementById("searchInput").value.toLowerCase();
+      const type = document.getElementById("typeFilter").value.toLowerCase();
+      const rows = document.getElementById("lostFoundTable").rows;
+
+      for (let i = 1; i < rows.length; i++) {
+        const text = rows[i].textContent.toLowerCase();
+        const show =
+          (type === "all" || text.includes(type)) &&
+          text.includes(search);
+
+        rows[i].style.display = show ? "" : "none";
+      }
     }
-  }
-</script>
+  </script>
 
 </body>
 </html>
