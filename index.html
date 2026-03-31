@@ -152,21 +152,16 @@
       <h3 style="color:#2c6e49; margin-top:30px;">Current Lost Items</h3>
 
       <!-- Filters -->
-      <select id="typeFilter" onchange="searchTable()" style="width:100%; padding:10px; border-radius:6px; border:1px solid #ccc;">
+       <select id="typeFilter" onchange="searchTable()">
       <!-- Searches for keyword-->
-        <option value="all">All Items</option>
-        <option value="lost">Lost Items</option>
-        <option value="found">Found Items</option>
-      </select>
+   
+  <option value="all">All</option>
+  <option value="lost">Lost</option>
+  <option value="found">Found</option>
+</select>
       <!-- Search bar -->
       <!-- Searches for whatever typed in in the table -->
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="Search items..."
-        onkeyup="searchTable()"
-        style="width:100%; padding:10px; margin:15px 0; border-radius:6px; border:1px solid #ccc;"
-      />
+      <input id="searchInput" onkeyup="searchTable()" placeholder="Search...">
       
       <div style="overflow-x:auto;">
         <table id="lostFoundTable" style="width:100%; border-collapse:collapse;">
