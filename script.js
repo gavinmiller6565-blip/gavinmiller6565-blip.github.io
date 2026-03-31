@@ -2,7 +2,9 @@ function searchTable() {
   const search = document.getElementById("searchInput").value.toLowerCase();
   const type = document.getElementById("typeFilter").value.toLowerCase();
   const rows = document.getElementById("lostFoundTable").rows;
-system.out.println("help");
+
+  console.log("help"); // debugging (this works)
+
   for (let i = 1; i < rows.length; i++) {
     const text = rows[i].textContent.toLowerCase();
     rows[i].style.display =
