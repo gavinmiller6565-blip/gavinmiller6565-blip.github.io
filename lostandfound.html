@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lost & Found</title>
+</head>
+
+<body style="margin:0; font-family: Arial, sans-serif; background-color:#d9ead3; color:#333;">
+
+<header style="background-color:#2c6e49; color:white; text-align:center; padding:30px 10px;">
+  <h1>Lost & Found</h1>
+</header>
+
+<nav style="background-color:#1b4332; text-align:center; padding:10px 0;">
+  <a href="index.html" style="color:white; margin:0 15px;">Home</a>
+  <a href="lostfound.html" style="color:white; margin:0 15px;">Lost & Found</a>
+</nav>
+
+<section style="max-width:1000px; margin:25px auto; background:white; padding:25px; border-radius:12px;">
+
+<h2 style="color:#2c6e49;">Lost & Found Items</h2>
+
+<input type="text" id="searchInput" placeholder="Search..." style="width:100%; padding:10px; margin-bottom:15px;">
+
+<table id="lostFoundTable" border="1" width="100%" style="border-collapse:collapse; text-align:center;">
+  <tr>
+    <th>Item</th>
+    <th>Location Found</th>
+    <th>Date</th>
+  </tr>
+  <tr>
+    <td>Water Bottle</td>
+    <td>Gym</td>
+    <td>3/20</td>
+  </tr>
+  <tr>
+    <td>Backpack</td>
+    <td>Library</td>
+    <td>3/18</td>
+  </tr>
+</table>
+
+</section>
+
+<script>
+function searchTable() {
+  const input = document.getElementById("searchInput").value.toLowerCase();
+  const rows = document.getElementById("lostFoundTable").rows;
+
+  for (let i = 1; i < rows.length; i++) {
+    let text = rows[i].innerText.toLowerCase();
+    rows[i].style.display = text.includes(input) ? "" : "none";
+  }
+}
+
+document.getElementById("searchInput").addEventListener("keyup", searchTable);
+</script>
+
+</body>
+</html>
