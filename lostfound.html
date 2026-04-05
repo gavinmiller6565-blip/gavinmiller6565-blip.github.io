@@ -1,59 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Lost & Found</title>
+<meta charset="UTF-8">
+<title>Lost & Found - Grayslake Central High School</title>
 </head>
-
 <body style="margin:0; font-family: Arial, sans-serif; background-color:#d9ead3; color:#333;">
 
-<header style="background-color:#2c6e49; color:white; text-align:center; padding:30px 10px;">
-  <h1>Lost & Found</h1>
+<!-- Header -->
+<header style="background-color:#2c6e49; color:white; text-align:center; padding:30px 10px; box-shadow:0 4px 8px rgba(0,0,0,0.2);">
+  <h1 style="margin:0; font-size:2.5em;">Grayslake Central High School</h1>
+  <p style="margin:5px 0 0; font-size:1.2em;">Lost & Found Items</p>
 </header>
 
+<!-- Navigation -->
 <nav style="background-color:#1b4332; text-align:center; padding:10px 0;">
-  <a href="index.html" style="color:white; margin:0 15px;">Home</a>
-  <a href="lostfound.html" style="color:white; margin:0 15px;">Lost & Found</a>
+  <a href="index.html" style="color:white; margin:0 15px; text-decoration:none; font-weight:bold;">Home</a>
+  <a href="#lostfound" style="color:white; margin:0 15px; text-decoration:none; font-weight:bold;">Lost & Found</a>
 </nav>
 
-<section style="max-width:1000px; margin:25px auto; background:white; padding:25px; border-radius:12px;">
+<!-- Lost & Found Section -->
+<section id="lostfound">
+  <div style=" max-width:1100px; margin:25px auto; padding:0 15px;">
+    <h2 style="color:#2c6e49;">Lost & Found</h2>
 
-<h2 style="color:#2c6e49;">Lost & Found Items</h2>
+    <!-- Search -->
+    <input type="text" id="searchInput" placeholder="Search items..." style="width:100%; padding:10px; margin-bottom:15px; border-radius:8px; border:1px solid #ccc;">
 
-<input type="text" id="searchInput" placeholder="Search..." style="width:100%; padding:10px; margin-bottom:15px;">
-
-<table id="lostFoundTable" border="1" width="100%" style="border-collapse:collapse; text-align:center;">
-  <tr>
-    <th>Item</th>
-    <th>Location Found</th>
-    <th>Date</th>
-  </tr>
-  <tr>
-    <td>Water Bottle</td>
-    <td>Gym</td>
-    <td>3/20</td>
-  </tr>
-  <tr>
-    <td>Backpack</td>
-    <td>Library</td>
-    <td>3/18</td>
-  </tr>
-</table>
-
+    <!-- Table -->
+    <table id="lostFoundTable" style="width:100%; border-collapse:collapse;">
+      <thead>
+        <tr style="background:#2c6e49; color:white;">
+          <th style="padding:10px; border:1px solid #ccc;">Item</th>
+          <th style="padding:10px; border:1px solid #ccc;">Location</th>
+          <th style="padding:10px; border:1px solid #ccc;">Date Found</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Google Sheets will populate rows here -->
+      </tbody>
+    </table>
+  </div>
 </section>
 
+<!-- Google Sheets Script -->
 <script>
-function searchTable() {
-  const input = document.getElementById("searchInput").value.toLowerCase();
-  const rows = document.getElementById("lostFoundTable").rows;
+const sheetID = "YOUR_GOOGLE_SHEET_ID";
+const base = `https://spreadsheets.google.com/feeds/list/${sheetID}/od6/public/values?alt=json`;
+
+fetch(base)
+  .then(res => res.json())
+  .then(data => {
+    const entries = data.feed.entry;
+    const table = document.getElementById("lostFoundTable").getElementsByTagName('tbody')[0];
+
+    entries.forEach(row => {
+      const tr = document.createElement('tr');
+      const item = row['gsx$item']['$t'];
+      const location = row['gsx$location']['$t'];
+      const date = row['gsx$datefound']['$t'];
+
+      tr.innerHTML = `<td style="padding:10px; border:1px solid #ccc;">${item}</td>
+                      <td style="padding:10px; border:1px solid #ccc;">${location}</td>
+                      <td style="padding:10px; border:1px solid #ccc;">${date}</td>`;
+      table.appendChild(tr);
+    });
+  });
+
+// Search Function
+document.getElementById('searchInput').addEventListener('keyup', function() {
+  const search = this.value.toLowerCase();
+  const rows = document.getElementById('lostFoundTable').rows;
 
   for (let i = 1; i < rows.length; i++) {
-    let text = rows[i].innerText.toLowerCase();
-    rows[i].style.display = text.includes(input) ? "" : "none";
+    const rowText = rows[i].innerText.toLowerCase();
+    rows[i].style.display = rowText.includes(search) ? '' : 'none';
   }
-}
-
-document.getElementById("searchInput").addEventListener("keyup", searchTable);
+});
 </script>
 
 </body>
