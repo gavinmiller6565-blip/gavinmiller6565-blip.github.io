@@ -2,81 +2,50 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Lost & Found - Grayslake Central High School</title>
+<title>Lost & Found - GCHS</title>
+<style>
+  body { margin:0; font-family: Arial, sans-serif; background-color: #f9f7f6; color: #333; }
+  header { background-color: #2c6e49; color: white; text-align:center; padding:30px 10px; }
+  nav { background-color:#1b4332; text-align:center; padding:10px 0; }
+  nav a { color:white; margin:0 15px; text-decoration:none; font-weight:bold; }
+  section { max-width:1100px; margin:25px auto; padding:0 15px; }
+  .card { background:white; padding:25px; border-radius:12px; box-shadow:0 6px 15px rgba(0,0,0,0.1); margin-bottom:25px; }
+  table { width:100%; border-collapse:collapse; margin-top:15px; }
+  th, td { border:1px solid #333; padding:10px; text-align:left; }
+  th { background-color:#2c6e49; color:white; }
+  .button { background-color:#2c6e49; color:white; border:none; padding:10px 20px; border-radius:8px; cursor:pointer; font-weight:bold; margin-right:10px; margin-top:10px; }
+  .button:hover { background-color:#14532d; }
+  iframe { width:100%; border:none; border-radius:12px; margin-top:15px; }
+</style>
 </head>
-<body style="margin:0; font-family: Arial, sans-serif; background-color:#d9ead3; color:#333;">
+<body>
 
-<!-- Header -->
-<header style="background-color:#2c6e49; color:white; text-align:center; padding:30px 10px; box-shadow:0 4px 8px rgba(0,0,0,0.2);">
-  <h1 style="margin:0; font-size:2.5em;">Grayslake Central High School</h1>
-  <p style="margin:5px 0 0; font-size:1.2em;">Lost & Found Items</p>
+<header>
+  <h1>GCHS Lost & Found</h1>
 </header>
 
-<!-- Navigation -->
-<nav style="background-color:#1b4332; text-align:center; padding:10px 0;">
-  <a href="index.html" style="color:white; margin:0 15px; text-decoration:none; font-weight:bold;">Home</a>
-  <a href="#lostfound" style="color:white; margin:0 15px; text-decoration:none; font-weight:bold;">Lost & Found</a>
+<nav>
+  <a href="index.html">Home</a>
 </nav>
 
-<!-- Lost & Found Section -->
-<section id="lostfound">
-  <div style=" max-width:1100px; margin:25px auto; padding:0 15px;">
-    <h2 style="color:#2c6e49;">Lost & Found</h2>
-
-    <!-- Search -->
-    <input type="text" id="searchInput" placeholder="Search items..." style="width:100%; padding:10px; margin-bottom:15px; border-radius:8px; border:1px solid #ccc;">
-
-    <!-- Table -->
-    <table id="lostFoundTable" style="width:100%; border-collapse:collapse;">
-      <thead>
-        <tr style="background:#2c6e49; color:white;">
-          <th style="padding:10px; border:1px solid #ccc;">Item</th>
-          <th style="padding:10px; border:1px solid #ccc;">Location</th>
-          <th style="padding:10px; border:1px solid #ccc;">Date Found</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Google Sheets will populate rows here -->
-      </tbody>
-    </table>
-  </div>
+<section class="card">
+  <h2>Lost & Found Table</h2>
+  <button class="button" onclick="window.open('https://docs.google.com/forms/d/e/YOUR_ADD_ITEM_FORM_ID/viewform','_blank')">Add Item</button>
+  <button class="button" onclick="window.open('https://docs.google.com/forms/d/e/YOUR_CLAIM_ITEM_FORM_ID/viewform','_blank')">Claim Item</button>
+  
+  <h3>Current Items</h3>
+  <iframe src="https://docs.google.com/spreadsheets/d/e/YOUR_GOOGLE_SHEET_ID/pubhtml?widget=true&amp;headers=false" height="400"></iframe>
 </section>
 
-<!-- Google Sheets Script -->
-<script>
-const sheetID = "YOUR_GOOGLE_SHEET_ID";
-const base = `https://spreadsheets.google.com/feeds/list/${sheetID}/od6/public/values?alt=json`;
+<section class="card">
+  <h2>Add Lost Item</h2>
+  <iframe src="https://docs.google.com/forms/d/e/YOUR_ADD_ITEM_FORM_ID/viewform?embedded=true" height="500"></iframe>
+</section>
 
-fetch(base)
-  .then(res => res.json())
-  .then(data => {
-    const entries = data.feed.entry;
-    const table = document.getElementById("lostFoundTable").getElementsByTagName('tbody')[0];
-
-    entries.forEach(row => {
-      const tr = document.createElement('tr');
-      const item = row['gsx$item']['$t'];
-      const location = row['gsx$location']['$t'];
-      const date = row['gsx$datefound']['$t'];
-
-      tr.innerHTML = `<td style="padding:10px; border:1px solid #ccc;">${item}</td>
-                      <td style="padding:10px; border:1px solid #ccc;">${location}</td>
-                      <td style="padding:10px; border:1px solid #ccc;">${date}</td>`;
-      table.appendChild(tr);
-    });
-  });
-
-// Search Function
-document.getElementById('searchInput').addEventListener('keyup', function() {
-  const search = this.value.toLowerCase();
-  const rows = document.getElementById('lostFoundTable').rows;
-
-  for (let i = 1; i < rows.length; i++) {
-    const rowText = rows[i].innerText.toLowerCase();
-    rows[i].style.display = rowText.includes(search) ? '' : 'none';
-  }
-});
-</script>
+<section class="card">
+  <h2>Claim Lost Item</h2>
+  <iframe src="https://docs.google.com/forms/d/e/YOUR_CLAIM_ITEM_FORM_ID/viewform?embedded=true" height="500"></iframe>
+</section>
 
 </body>
 </html>
