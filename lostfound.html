@@ -2,50 +2,121 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Lost & Found - GCHS</title>
-<style>
-  body { margin:0; font-family: Arial, sans-serif; background-color: #f9f7f6; color: #333; }
-  header { background-color: #2c6e49; color: white; text-align:center; padding:30px 10px; }
-  nav { background-color:#1b4332; text-align:center; padding:10px 0; }
-  nav a { color:white; margin:0 15px; text-decoration:none; font-weight:bold; }
-  section { max-width:1100px; margin:25px auto; padding:0 15px; }
-  .card { background:white; padding:25px; border-radius:12px; box-shadow:0 6px 15px rgba(0,0,0,0.1); margin-bottom:25px; }
-  table { width:100%; border-collapse:collapse; margin-top:15px; }
-  th, td { border:1px solid #333; padding:10px; text-align:left; }
-  th { background-color:#2c6e49; color:white; }
-  .button { background-color:#2c6e49; color:white; border:none; padding:10px 20px; border-radius:8px; cursor:pointer; font-weight:bold; margin-right:10px; margin-top:10px; }
-  .button:hover { background-color:#14532d; }
-  iframe { width:100%; border:none; border-radius:12px; margin-top:15px; }
-</style>
+<title>Grayslake Central High School - Lost & Found</title>
 </head>
-<body>
+<body style="margin:0; font-family: Arial, sans-serif; background-color:#d9ead3; color:#333;">
 
-<header>
-  <h1>GCHS Lost & Found</h1>
+<!-- Header -->
+<header style="background-color:#2c6e49; color:white; text-align:center; padding:30px 10px; box-shadow:0 4px 8px rgba(0,0,0,0.2);">
+    <h1 style="margin:0; font-size:2.5em;">Grayslake Central High School</h1>
+    <p style="margin:5px 0 0; font-size:1.2em;">Real, Authentic, Engaging Learning</p>
 </header>
 
-<nav>
-  <a href="index.html">Home</a>
+<!-- Navigation -->
+<nav style="background-color:#1b4332; text-align:center; padding:10px 0;">
+    <a href="index.html" style="color:white; margin:0 15px; text-decoration:none; font-weight:bold;">Home</a>
+    <a href="index.html#about" style="color:white; margin:0 15px; text-decoration:none; font-weight:bold;">About</a>
+    <a href="index.html#announcements" style="color:white; margin:0 15px; text-decoration:none; font-weight:bold;">Announcements</a>
+    <a href="#lostfound" style="color:white; margin:0 15px; text-decoration:none; font-weight:bold;">Lost & Found</a>
 </nav>
 
-<section class="card">
-  <h2>Lost & Found Table</h2>
-  <button class="button" onclick="window.open('https://docs.google.com/forms/d/e/YOUR_ADD_ITEM_FORM_ID/viewform','_blank')">Add Item</button>
-  <button class="button" onclick="window.open('https://docs.google.com/forms/d/e/YOUR_CLAIM_ITEM_FORM_ID/viewform','_blank')">Claim Item</button>
-  
-  <h3>Current Items</h3>
-  <iframe src="https://docs.google.com/spreadsheets/d/e/YOUR_GOOGLE_SHEET_ID/pubhtml?widget=true&amp;headers=false" height="400"></iframe>
+<!-- Lost & Found Section -->
+<section id="lostfound">
+    <div style="max-width:900px; margin:25px auto; padding:25px; background:white; border-radius:12px; box-shadow:0 6px 15px rgba(0,0,0,0.1);">
+        <h2 style="color:#2c6e49;">Lost & Found</h2>
+
+        <!-- Submit item Button -->
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfyJZxC9BQkjeCYRGvwqsuJEjAIJbIoJi-EZcG7zhAPdi0JFQ/viewform" target="_blank" style="display:inline-block; margin:15px 0; padding:12px 25px; background:#2c6e49; color:white; text-decoration:none; font-weight:bold; border-radius:8px;">Submit Lost/Found Item</a>
+
+        <h3 style="color:#2c6e49; margin-top:30px;">Current Lost Items</h3>
+
+        <!-- Filters -->
+        <select id="typeFilter" onchange="searchTable()" style="width:100%; padding:10px; border-radius:6px; border:1px solid #ccc;">
+            <option value="all">All Items</option>
+            <option value="lost">Lost Items</option>
+            <option value="found">Found Items</option>
+        </select>
+
+        <!-- Search bar -->
+        <input type="text" id="searchInput" placeholder="Search items..." onkeyup="searchTable()" style="width:100%; padding:10px; margin:15px 0; border-radius:6px; border:1px solid #ccc;" />
+
+        <div style="overflow-x:auto;">
+            <table id="lostFoundTable" style="width:100%; border-collapse:collapse;">
+                <thead style="background:#2c6e49; color:white;">
+                    <tr id="tableHeader"></tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+    </div>
 </section>
 
-<section class="card">
-  <h2>Add Lost Item</h2>
-  <iframe src="https://docs.google.com/forms/d/e/YOUR_ADD_ITEM_FORM_ID/viewform?embedded=true" height="500"></iframe>
+<!-- Question Section (also kept on lost & found page per request) -->
+<section>
+    <div style="max-width:900px; margin:30px auto; padding:25px; background:white; border-radius:12px; box-shadow:0 6px 15px rgba(0,0,0,0.1); text-align:center;">
+        <h2 style="color:#2c6e49;">Have a Question?</h2>
+        <p>Submit any questions or concerns using the form below.</p>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScqXLFwF20dWM6uyccynQgJ0SBfp1EayhakvF_MizeAcMlQKg/viewform" target="_blank" style="display:inline-block; padding:15px 35px; background:#1b4332; color:white; text-decoration:none; font-size:1.1em; font-weight:bold; border-radius:10px;">Ask a Question</a>
+    </div>
 </section>
 
-<section class="card">
-  <h2>Claim Lost Item</h2>
-  <iframe src="https://docs.google.com/forms/d/e/YOUR_CLAIM_ITEM_FORM_ID/viewform?embedded=true" height="500"></iframe>
-</section>
+<!-- Footer -->
+<footer style="background:#1b4332; color:white; text-align:center; padding:20px;">
+    <p>© 2026 Grayslake Central High School</p>
+</footer>
+
+<!-- Load Google Sheet automatically -->
+<script>
+    const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSUAhtLgwI1TJFAJC4P6NpIfrSNND1R2kTGPN8WMQvRW4zX9WNQ_5LAwvZVWmgY_ad6H-VftN6jOrKv/pub?output=csv";
+    fetch(sheetURL)
+        .then(res => res.text())
+        .then(csv => {
+            const rows = csv.trim().split("\n").map(r => r.split(","));
+            const headers = rows.shift();
+            headers.forEach(h => {
+                const th = document.createElement("th");
+                th.textContent = h;
+                th.style.padding = "10px";
+                th.style.border = "1px solid #ddd";
+                document.getElementById("tableHeader").appendChild(th);
+            });
+            rows.forEach(row => {
+                const tr = document.createElement("tr");
+                row.forEach(cell => {
+                    const td = document.createElement("td");
+                    td.style.padding = "10px";
+                    td.style.border = "1px solid #ddd";
+                    if (cell.startsWith("http")) {
+                        const a = document.createElement("a");
+                        a.href = cell;
+                        a.textContent = "View";
+                        a.target = "_blank";
+                        a.style.color = "#2c6e49";
+                        a.style.fontWeight = "bold";
+                        a.style.textDecoration = "none";
+                        td.appendChild(a);
+                    } else {
+                        td.textContent = cell;
+                    }
+                    tr.appendChild(td);
+                });
+                document.getElementById("tableBody").appendChild(tr);
+            });
+        });
+</script>
+
+<!-- Search + Dropdown -->
+<script>
+    function searchTable() {
+        const search = document.getElementById("searchInput").value.toLowerCase();
+        const type = document.getElementById("typeFilter").value.toLowerCase();
+        const rows = document.getElementById("lostFoundTable").rows;
+        for (let i = 1; i < rows.length; i++) {
+            const text = rows[i].textContent.toLowerCase();
+            rows[i].style.display = (type === "all" || text.includes(type)) && text.includes(search) ? "" : "none";
+        }
+    }
+</script>
 
 </body>
 </html>
